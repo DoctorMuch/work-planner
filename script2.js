@@ -1,6 +1,7 @@
 $(document).ready(function () {
+  
   const hours = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
-
+  
   let body = document.body;
   let schedulerEl = document.getElementById("schedule");
   
@@ -18,9 +19,9 @@ $(document).ready(function () {
 
   let auditTime = function(schedulerEl){
     let date = $(schedulerEl).find("p").text().trim();
-
+    console.log(date)
     let time = dayjs(date, "L");
-
+    console.log(time);
     if (dayjs().isAfter(time)){
       $(schedulerEl).addClass("past");
     } 
@@ -28,6 +29,7 @@ $(document).ready(function () {
       $(schedulerEl).addClass("present");
     }
   }
+  auditTime();
 
   function getRow(hour) {
     let rowDiv = document.createElement("div");
@@ -37,7 +39,7 @@ $(document).ready(function () {
     let labelDiv = document.createElement("div");
     labelDiv.setAttribute("class", "col-md-1 hour");
     labelDiv.setAttribute("id", `hour-${hour}-label`);
-    labelDiv.textContent = hour;
+    labelDiv.textContent = dayjs().hour(hour).format("h A");
 
     let textAreaEl = document.createElement("textarea");
     textAreaEl.setAttribute("class", "col-md-10 description past");
@@ -70,5 +72,6 @@ $(document).ready(function () {
 
   for (let i = 0; i < hours.length; i++) {
     getRow(hours[i]);
+    // auditTime();
   }
 });
