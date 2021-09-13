@@ -18,9 +18,9 @@ $(document).ready(function () {
   };
 
   let auditTime = function(schedulerEl){
-    let date = $(schedulerEl).find("p").text().trim();
+    let date = $(schedulerEl).find("col-md-1 hour").html();
     console.log(date)
-    let time = dayjs(date, "L");
+    let time = dayjs(date).format("h A");
     console.log(time);
     if (dayjs().isAfter(time)){
       $(schedulerEl).addClass("past");
@@ -30,7 +30,6 @@ $(document).ready(function () {
     }
   }
   auditTime();
-
   function getRow(hour) {
     let rowDiv = document.createElement("div");
     rowDiv.setAttribute("class", "row time-block");
@@ -42,7 +41,7 @@ $(document).ready(function () {
     labelDiv.textContent = dayjs().hour(hour).format("h A");
 
     let textAreaEl = document.createElement("textarea");
-    textAreaEl.setAttribute("class", "col-md-10 description past");
+    textAreaEl.setAttribute("class", "col-md-10 description");
     textAreaEl.setAttribute("id", `textarea-${hour}`);
     if (localStorage.getItem(hour)){
       textAreaEl.textContent = localStorage.getItem(hour);
